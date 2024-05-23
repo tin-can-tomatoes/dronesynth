@@ -1,2 +1,2 @@
-# dronesynth
-Firmware for an ESP32-based Drone Synthesizer
+# Tomatoes' Drone Synth
+An ESP32-based Drone Synthesizer, built for [Drone Day](https://droneday.org/) 2024
