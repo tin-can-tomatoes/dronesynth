@@ -28,11 +28,11 @@
 #define KNOB_OSC2_PITCH 34u
 #define KNOB_OSC2_DUTY 35u
 
-#define KNOB_OSC3_PITCH 32u
-#define KNOB_OSC3_DUTY 33u
+#define KNOB_OSC3_PITCH 27u
+#define KNOB_OSC3_DUTY 14u
 
-#define KNOB_OSC4_PITCH 27u
-#define KNOB_OSC4_DUTY 14u
+#define KNOB_OSC4_PITCH 32u
+#define KNOB_OSC4_DUTY 33u
 
 #define KNOB_LFO1_RATE 12u
 #define KNOB_LFO2_RATE 13u
