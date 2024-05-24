@@ -54,7 +54,7 @@ extern "C" {
 
         ESP_ERROR_CHECK(gptimer_enable(timer_handle));
         
-        timer_alarm_config.alarm_count = 5; // alarm is every 10 timer ticks, so 10kHz/10 = 1kHz = 1ms
+        timer_alarm_config.alarm_count = 10; // alarm is every 10 timer ticks, so 10kHz/10 = 1kHz = 1ms
         timer_alarm_config.flags.auto_reload_on_alarm=true;
 
         ESP_ERROR_CHECK(gptimer_set_alarm_action(timer_handle, &timer_alarm_config));
