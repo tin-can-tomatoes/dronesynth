@@ -67,13 +67,13 @@ Param Param::params[PARAM_MAX] = {
     Param( PARAM_OSC4_PITCH_RAW,                           80,                        0,                4095, -1, KNOB_OSC4_PITCH),
     Param( PARAM_OSC4_PWM_DUTY,                            15,                        0,                  30, -1, KNOB_OSC4_DUTY),
     Param( PARAM_OSC4_PITCH_MODE,        OSCILLATOR_MODE_NOTE,    OSCILLATOR_MODE_NOTE,  OSCILLATOR_MODE_3HZ),
-    Param( PARAM_LFO1_PERIOD_MS,                         1000,                      500,                 6000, -1, KNOB_LFO1_RATE),
+    Param( PARAM_LFO1_PERIOD_MS,                         1000,                      500,                 3000, -1, KNOB_LFO1_RATE),
     Param( PARAM_LFO1_PHASE,                                0,                        0,                 360),
     Param( PARAM_LFO1_WAVE_FUNC,      (int)WAVE_FUNC_SINE,                        0,    WAVE_FUNC_SQUARE),
     Param( PARAM_LFO1_WAVE_MIDPOINT_DUTY,                 100,                        0,                1000),
     Param( PARAM_LFO1_FLOOR,                                0,                        0,                 255),
     Param( PARAM_LFO1_CIEL,                               255,                        0,                 255),
-    Param( PARAM_LFO2_PERIOD_MS,                         1000,                      500,                 6000, -1, KNOB_LFO2_RATE),
+    Param( PARAM_LFO2_PERIOD_MS,                         1000,                      500,                 3000, -1, KNOB_LFO2_RATE),
     Param( PARAM_LFO2_PHASE,                                0,                        0,                 360),
     Param( PARAM_LFO2_WAVE_FUNC,      (int)WAVE_FUNC_SINE,                        0,    WAVE_FUNC_SQUARE),
     Param( PARAM_LFO2_WAVE_MIDPOINT_DUTY,                 500,                        0,                1000),
@@ -97,7 +97,10 @@ void Param::poll_inputs(){
                 if(params[i].value_min == 0 && params[i].value_max == 4095){
                     params[i].set_int(new_raw);
                 } else {
-                    params[i].set_int(map(new_raw,0,4095,params[i].value_min, params[i].value_max));
+                    int new_value = map(new_raw,0,4095,params[i].value_min, params[i].value_max);
+                    if(params[i].value_int != new_value){
+                        params[i].set_int(new_value);
+                    }
                 }
             }
         }
