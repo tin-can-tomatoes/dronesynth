@@ -52,6 +52,7 @@ long map(long x, long in_min, long in_max, long out_min, long out_max) {
 
 // Initialize the params:
 Param Param::params[PARAM_MAX] = {
+    // TODO: Change LFOs to Centiseconds!
     Param( PARAM_ZERO,0,0,1), 
     Param( PARAM_SYNTH_MIDI_CHANNEL,                        0,                       0,                   15),
     Param( PARAM_SYNTH_BPM,                               120,                       1,                  600),
@@ -67,16 +68,16 @@ Param Param::params[PARAM_MAX] = {
     Param( PARAM_OSC4_PITCH_RAW,                           80,                        0,                4095, -1, KNOB_OSC4_PITCH),
     Param( PARAM_OSC4_PWM_DUTY,                            15,                        0,                  30, -1, KNOB_OSC4_DUTY),
     Param( PARAM_OSC4_PITCH_MODE,        OSCILLATOR_MODE_NOTE,    OSCILLATOR_MODE_NOTE,  OSCILLATOR_MODE_3HZ),
-    Param( PARAM_LFO1_PERIOD_MS,                         1000,                      500,                 3000, -1, KNOB_LFO1_RATE),
+    Param( PARAM_LFO1_PERIOD_MS,                           50,                      500,                 2000, -1, KNOB_LFO1_RATE),
     Param( PARAM_LFO1_PHASE,                                0,                        0,                 360),
     Param( PARAM_LFO1_WAVE_FUNC,      (int)WAVE_FUNC_SINE,                        0,    WAVE_FUNC_SQUARE),
     Param( PARAM_LFO1_WAVE_MIDPOINT_DUTY,                 100,                        0,                1000),
     Param( PARAM_LFO1_FLOOR,                                0,                        0,                 255),
     Param( PARAM_LFO1_CIEL,                               255,                        0,                 255),
-    Param( PARAM_LFO2_PERIOD_MS,                         1000,                      500,                 3000, -1, KNOB_LFO2_RATE),
+    Param( PARAM_LFO2_PERIOD_MS,                           50,                      500,                 2000, -1, KNOB_LFO2_RATE),
     Param( PARAM_LFO2_PHASE,                                0,                        0,                 360),
-    Param( PARAM_LFO2_WAVE_FUNC,      (int)WAVE_FUNC_SINE,                        0,    WAVE_FUNC_SQUARE),
-    Param( PARAM_LFO2_WAVE_MIDPOINT_DUTY,                 500,                        0,                1000),
+    Param( PARAM_LFO2_WAVE_FUNC,      (int)WAVE_FUNC_SAWTOOTH,                        0,    WAVE_FUNC_SQUARE),
+    Param( PARAM_LFO2_WAVE_MIDPOINT_DUTY,                 200,                        0,                1000),
     Param( PARAM_LFO2_FLOOR,                                0,                        0,                 255),
     Param( PARAM_LFO2_CIEL,                               255,                        0,                 255),
 
