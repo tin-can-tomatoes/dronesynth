@@ -15,7 +15,7 @@ void LFO::init(uint8_t pin, uint8_t lfo_num){
 
     // Map params
 
-    param_period_ms =           (SynthParams) ((int)LFO_PARAM_START + (int)LFO_PARAM_PERIOD_MS  + (LFO_PARAM_MAX * (lfo_num-1)));
+    param_period_cs =           (SynthParams) ((int)LFO_PARAM_START + (int)LFO_PARAM_PERIOD_CS  + (LFO_PARAM_MAX * (lfo_num-1)));
     param_phase =               (SynthParams) ((int)LFO_PARAM_START + (int)LFO_PARAM_PHASE      + (LFO_PARAM_MAX * (lfo_num-1)));
     param_wave_func =           (SynthParams) ((int)LFO_PARAM_START + (int)LFO_PARAM_WAVE_FUNC  + (LFO_PARAM_MAX * (lfo_num-1)));
     param_wave_midpoint_duty =  (SynthParams) ((int)LFO_PARAM_START + (int)LFO_PARAM_WAVE_MIDPOINT_DUTY + (LFO_PARAM_MAX * (lfo_num-1)));
@@ -23,7 +23,7 @@ void LFO::init(uint8_t pin, uint8_t lfo_num){
     param_ciel =                (SynthParams) ((int)LFO_PARAM_START + (int)LFO_PARAM_CIEL               + (LFO_PARAM_MAX * (lfo_num-1)));
     
     // Attach callbacks to params
-    Param::params[param_period_ms].set_callback(this);
+    Param::params[param_period_cs].set_callback(this);
     Param::params[param_phase].set_callback(this);
     Param::params[param_wave_func].set_callback(this);
     Param::params[param_wave_midpoint_duty].set_callback(this);
@@ -37,7 +37,7 @@ void LFO::init(uint8_t pin, uint8_t lfo_num){
 
 void LFO::apply_params(){
 
-    period_ms = Param::get(param_period_ms);
+    period_ms = Param::get(param_period_cs) * 10;
     phase_ticks = round(((double) period_ms) * Param::getd(PARAM_LFO1_PHASE));
     wave_func = (LFOWaveFunc) Param::get(param_wave_func);
     wave_midpoint_duty = Param::getd(param_wave_midpoint_duty);

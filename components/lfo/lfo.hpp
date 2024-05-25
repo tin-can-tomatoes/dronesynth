@@ -5,10 +5,10 @@
 
 #include "params.hpp"
 
-#define LFO_PARAM_START PARAM_LFO1_PERIOD_MS
+#define LFO_PARAM_START PARAM_LFO1_PERIOD_CS
 
 enum LfoParam {
-    LFO_PARAM_PERIOD_MS = 0,
+    LFO_PARAM_PERIOD_CS = 0,
     LFO_PARAM_PHASE,
     LFO_PARAM_WAVE_FUNC,
     LFO_PARAM_WAVE_MIDPOINT_DUTY,
@@ -56,7 +56,7 @@ class LFO : public ParamCallback {
         double sine_add;
         
 
-        SynthParams param_period_ms;
+        SynthParams param_period_cs;
         SynthParams param_phase;
         SynthParams param_wave_func;
         SynthParams param_wave_midpoint_duty;
