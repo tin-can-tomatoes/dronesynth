@@ -114,7 +114,7 @@ void Midi::dispatch_message(uint8_t status, uint8_t data1, uint8_t data2){
             handler->handle_channel_pressure(channel, data1);
             return;
         case MIDI_PITCH_BEND:
-            wide_char = (((uint16_t)data2) << 4) | ((uint16_t) data1);
+            wide_char = (((uint16_t)data2) << 7) | ((uint16_t) data1);
             handler->handle_pitch_bend(channel, wide_char);
             return;
     }

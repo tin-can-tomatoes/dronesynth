@@ -5,13 +5,10 @@
 #include "driver/ledc.h"
 
 #define PWM_MODE LEDC_HIGH_SPEED_MODE
-#define PWM_RESOLUTION LEDC_TIMER_5_BIT
+#define PWM_RESOLUTION LEDC_TIMER_8_BIT
 
 /// @brief Class to abstract PWM pin functionality
-/// @warning Class can only be instantiated 4 times,
-/// we run out of PWM timers after that.
-/// Theoretically we could have more PWM channels
-/// but they would have to share timers.
+/// For this LFO synth, all PWMChanels share the same timer
 class PWMChannel{
     public:
         PWMChannel(uint8_t pin);

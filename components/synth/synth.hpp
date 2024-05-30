@@ -3,11 +3,9 @@
 
 #include <cstdint>
 
-#include <adsr.hpp>
 #include <lfo_analog.hpp>
+#include <lfo_pwm.hpp>
 #include <midi.hpp>
-#include <musical_notes.hpp>
-#include <oscillator.hpp>
 #include <params.hpp>
 
 
@@ -15,9 +13,6 @@ class TomatoSynth : public MidiCallbackHandler, public ParamCallback{
     public:
         void init();
         void tick();
-        void note_on(uint8_t note, uint8_t velocity);
-        void note_off(uint8_t note);
-        void note_force_off();
 
 
         // Midi handlers:
@@ -44,20 +39,15 @@ class TomatoSynth : public MidiCallbackHandler, public ParamCallback{
         // Param handler
         void param_changed(SynthParams param, int old_int, int new_int, double old_double, double new_double);
     private:
-        Oscillator osc1;
-        Oscillator osc2;
-        Oscillator osc3;
-        Oscillator osc4;
         AnalogLfo lfo1;
         AnalogLfo lfo2;
+        PWMLfo lfo3;
+        PWMLfo lfo4;
 
         MidiChannel channel;
         int bpm;
         unsigned long last_bpm_tick;
         
-        size_t note_stack[MUSICAL_NOTES_TOTAL];
-        uint8_t velocity_stack[MUSICAL_NOTES_TOTAL];
-        signed char note_stack_pointer;
 
 };
 

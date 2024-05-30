@@ -6,16 +6,16 @@
 
 
 PWMChannel::PWMChannel(uint8_t pin){
-    static size_t timer_idx = 0;
-    if(timer_idx >= LEDC_TIMER_MAX || timer_idx >= LEDC_CHANNEL_MAX)
+    static size_t channel_idx = 0;
+    if(channel_idx >= LEDC_CHANNEL_MAX)
     {
         exit(EXIT_FAILURE);
     }
 
-    timer_num = (ledc_timer_t)timer_idx;
-    channel_num = (ledc_channel_t)timer_idx;
+    timer_num = (ledc_timer_t)LEDC_TIMER_0;
+    channel_num = (ledc_channel_t)channel_idx;
     
-    ++ timer_idx;
+    ++ channel_idx;
 
     timer_config = {
         .speed_mode = LEDC_HIGH_SPEED_MODE,

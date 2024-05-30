@@ -9,7 +9,6 @@
 #include <esp_log.h>
 
 #include <midi.hpp>
-#include <musical_notes.hpp>
 #include <pins.hpp>
 #include <synth.hpp>
 
@@ -20,9 +19,6 @@ gptimer_handle_t timer_handle;
 gptimer_config_t timer_config;
 gptimer_event_callbacks_t timer_callbacks;
 gptimer_alarm_config_t timer_alarm_config;
-
-
-#define BUF_SIZE (1024)
 
 /// @brief Timer callback for the synth. Called during interrupt every 1/1000th of a second, this is what actually makes the LFOs and ADSR work.
 /// @attention Friendly reminder that the FPU does not work during interrupt service routines, therefore avoid "float" data types in favor of "double"
@@ -35,8 +31,6 @@ extern "C" {
 
     void app_main(void)
     {
-        // Init timers
-        init_pins();
         synth.init();
         
 
@@ -60,14 +54,7 @@ extern "C" {
         ESP_ERROR_CHECK(gptimer_set_alarm_action(timer_handle, &timer_alarm_config));
         ESP_ERROR_CHECK(gptimer_start(timer_handle));
         
-        //vTaskDelete(NULL);
-        while (true)    
-        {
-            Param::dump();
-            vTaskDelay(10000/portTICK_PERIOD_MS);
-        }
-
-        
+        vTaskDelete(NULL);
     }
 
 }

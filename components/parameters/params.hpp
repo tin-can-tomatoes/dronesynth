@@ -33,18 +33,6 @@ PARAM_DISABLED = -1,
 PARAM_ZERO,
 PARAM_SYNTH_MIDI_CHANNEL /* Which midi channel the synth should listen to */,
 PARAM_SYNTH_BPM /* BPM Reported by MIDI */,
-PARAM_OSC1_PITCH_RAW /* Note or pitch for OSC1 */,
-PARAM_OSC1_PWM_DUTY, /* OSC1 PWM Duty */
-PARAM_OSC1_PITCH_MODE,
-PARAM_OSC2_PITCH_RAW,
-PARAM_OSC2_PWM_DUTY,
-PARAM_OSC2_PITCH_MODE,
-PARAM_OSC3_PITCH_RAW,
-PARAM_OSC3_PWM_DUTY,
-PARAM_OSC3_PITCH_MODE,
-PARAM_OSC4_PITCH_RAW,
-PARAM_OSC4_PWM_DUTY,
-PARAM_OSC4_PITCH_MODE,
 PARAM_LFO1_PERIOD_CS, // lfo period in centiseconds
 PARAM_LFO1_PHASE,
 PARAM_LFO1_WAVE_FUNC,
@@ -57,6 +45,18 @@ PARAM_LFO2_WAVE_FUNC,
 PARAM_LFO2_WAVE_MIDPOINT_DUTY,
 PARAM_LFO2_FLOOR,
 PARAM_LFO2_CIEL,
+PARAM_LFO3_PERIOD_CS,
+PARAM_LFO3_PHASE,
+PARAM_LFO3_WAVE_FUNC,
+PARAM_LFO3_WAVE_MIDPOINT_DUTY,
+PARAM_LFO3_FLOOR,
+PARAM_LFO3_CIEL,
+PARAM_LFO4_PERIOD_CS,
+PARAM_LFO4_PHASE,
+PARAM_LFO4_WAVE_FUNC,
+PARAM_LFO4_WAVE_MIDPOINT_DUTY,
+PARAM_LFO4_FLOOR,
+PARAM_LFO4_CIEL,
 PARAM_MAX
 };
 
@@ -105,20 +105,16 @@ class Param {
         /// @param val The midi value to set (between 0 and 127)
         static void set_midi(SynthParams param, signed char val);
 
+        /// @brief Same as Param::set_midi but accepts a MIDI CC number instead of SynthParam
+        /// @param midi_cc Midi Channel Control number
+        /// @param cc_value Midi Channel Control Value
+        static void set_from_midi(signed char midi_cc, signed char cc_value);
+
         /// @brief The array of Param instances
         static Param params[PARAM_MAX];
 
         /// @brief Utility function that dumps all param values to the serial monitor
         static void dump();
-
-        /// @brief Checks the input pins for any changes and applies them
-        /// @attention This function is an infinite loop. Don't call this - it runs in a RTOS task
-        /// @see Param::start_watching_inputs()
-        static void poll_inputs();
-
-        /// @brief Starts the RTOS task that monitors the input pins
-        /// @attention This function should only be called once.
-        static void start_watching_inputs();
 
         /// @brief Gets the integer value of this Param
         /// @return The integer value, which should be between the param's min and max
@@ -172,27 +168,7 @@ class Param {
              int value_max,
              signed char midi_cc);
 
-        
-        /// @brief Construct a param with a MIDI channel control number.
-        /// @attention The value from the input pin will overrule whatever MIDI sends. This behavior will
-        /// be fixed eventually, but for now, MIDI CCs and Input Pins for the same param do not play together well.
-        /// @param param Which param
-        /// @param default_val Default starting value
-        /// @param value_min Minimum integer value, maps to 0.0 in the param's floating point value
-        /// @param value_max Maximum integer value, maps to 1.0 in the param's floating point value
-        /// @param midi_cc The midi channel controller parameter that should control the value of this param.
-        ///                Set to -1 to disable
-        /// @param input_pin Which ADC pin to monitor as the physical control knob for this parameter.
-        ///                Set to 0 to disable
-        Param(SynthParams param,int default_val,
-             int value_min,
-             int value_max,
-             signed char midi_cc,
-             unsigned char input_pin);
-
-
         signed char midi_cc;
-        unsigned char input_pin;
 
         SynthParams param;
 
@@ -205,7 +181,7 @@ class Param {
         // Maximum integer value, maps to double value 1
         int value_max;
         // Last input value
-        volatile unsigned int last_input_value;
+        volatile unsigned char last_cc_value;
         // Default value
         int default_value;
 
